@@ -1,0 +1,5 @@
+.vpd-time .vpd-time-h .counter,
+.vpd-time .vpd-time-m .counter {
+  direction: ltr !important;
+}
+
