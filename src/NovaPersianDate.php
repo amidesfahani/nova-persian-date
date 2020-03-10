@@ -81,4 +81,15 @@ class NovaPersianDate extends Field
     {
         return $this->withMeta(compact('formats'));
     }
+    
+    /**
+     * type ['datetime', 'date', 'time']
+     *
+     * @param  string  datepicker type
+     * @return PersianDateTime
+     */
+    public function type($type)
+    {
+        return $this->withMeta(compact('type'));
+    }
 }
