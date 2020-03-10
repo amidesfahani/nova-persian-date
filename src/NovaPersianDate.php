@@ -49,4 +49,36 @@ class NovaPersianDate extends Field
     {
         return $this->withMeta(compact('color'));
     }
+
+    /**
+     * Set Start Date.
+     *
+     * @param string :TODO: add more formats (timestamp, carbon, jdate, string)
+     * @return PersianDateTime
+     */
+    public function min($min)
+    {
+        return $this->withMeta(compact('min'));
+    }
+
+    /**
+     * Set Humanize Function for MOMENT.
+     *
+     * @return PersianDateTime
+     */
+    public function humanize()
+    {
+        return $this->withMeta(['humanize' => true]);
+    }
+
+    /**
+     * format based on jalali-moment. See https://github.com/jalaali/moment-jalaali
+     *
+     * @param  array  $formats
+     * @return PersianDateTime
+     */
+    public function formats($formats)
+    {
+        return $this->withMeta(compact('formats'));
+    }
 }
