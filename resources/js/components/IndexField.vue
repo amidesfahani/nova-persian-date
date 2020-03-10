@@ -4,13 +4,28 @@
 
 <script>
 import jMoment from "moment-jalaali"
+import fa from "moment/src/locale/fa";
+jMoment.locale("fa", fa);
+jMoment.loadPersian();
 
 export default {
     props: ['resourceName', 'field'],
     computed: {
         persianDate() {
             if(this.field.value) {
-                return jMoment(this.field.value).format(this.format)
+                var d = jMoment(this.field.value)
+                if(this.field.humanize)
+                {
+                    if(d.isBefore(jMoment()))
+                    {
+                        return d.fromNow()
+                    }
+                    else
+                    {
+                        return d.toNow()
+                    }
+                }
+                return d.format(this.format)
             }
         },
         format() {
