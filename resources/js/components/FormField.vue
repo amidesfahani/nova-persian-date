@@ -19,7 +19,7 @@
                 :class="errorClasses"
                 :color="color"
                 :placeholder="placeholder"
-                type="datetime"
+                :type="type"
                 :element="fieldId"
                 :min="minDate"
             />
@@ -75,6 +75,9 @@ export default {
                 return this.field.min ? jMoment(this.field.min, this.format).format('jYYYY-jMM-jDD') : '';
             }
             return this.field.min ? jMoment(this.field.min,'jYYYY-jMM-jDD').format('jYYYY-jMM-jDD') : '';
+        },
+        type() {
+            return this.field.type || 'datetime'
         }
     },
 
