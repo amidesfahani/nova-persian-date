@@ -46,7 +46,7 @@ export default {
             {
                 return this.field.formats.FormField
             }
-            return this.field.format || 'jYYYY/jMM/jDD HH:mm:ss'
+            return this.field.format || this.createFormat
         },
         persianDate() {
             if (!this.field.value) {
@@ -78,6 +78,17 @@ export default {
         },
         type() {
             return this.field.type || 'datetime'
+        },
+        createFormat() {
+            switch(this.type)
+            {
+                case 'datetime':
+                    return 'jYYYY/jMM/jDD HH:mm:ss';
+                case 'date':
+                    return 'jYYYY/jMM/jDD';
+                case 'time':
+                    return 'HH:mm';
+            }
         }
     },
 
