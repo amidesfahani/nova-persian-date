@@ -22,6 +22,8 @@
                 :type="type"
                 :element="fieldId"
                 :min="minDate"
+                :max="maxDate"
+                :locale="locale" 
             />
 
         </template>
@@ -41,6 +43,9 @@ export default {
     props: ['resourceName', 'resourceId', 'field'],
 
     computed: {
+        locale() {
+            return this.field.locale || 'fa,en'
+        },
         format() {
             if(this.field.formats && this.field.formats.FormField)
             {
@@ -69,12 +74,68 @@ export default {
             return id
         },
         minDate() {
+            var minDate = new jMoment();
+            if (this.field.min == 'lastyear') {
+                minDate.jYear(minDate.jYear() - 1)
+            }
+            else
+            if (this.field.min == 'lastmonth') {
+                minDate.jMonth(minDate.jMonth() - 1)
+            }
+            else
+            if (this.field.min == 'lastweek') {
+                minDate.jDate(minDate.jDate() - 7)
+            }
+            else
+            if (this.field.min == 'lastday') {
+                minDate.jDate(minDate.jDate() - 1)
+            }
+            else
+            if(jMoment(this.field.min, 'jYYYY/jMM/jDD').isValid()) {
+                minDate = jMoment(this.field.min).format('jYYYY-jMM-jDD')
+            }
+            else
             if(moment(this.field.min, 'YYYY-MM-DD', true).isValid())
             {
-                alert(jMoment(this.field.min).format('jYYYY-jMM-jDD'))
-                return this.field.min ? jMoment(this.field.min, this.format).format('jYYYY-jMM-jDD') : '';
+                minDate = jMoment(this.field.min).format('jYYYY-jMM-jDD')
             }
-            return this.field.min ? jMoment(this.field.min,'jYYYY-jMM-jDD').format('jYYYY-jMM-jDD') : '';
+            else
+            {
+                minDate = jMoment(this.field.min, 'jYYYY-jMM-jDD').format('jYYYY-jMM-jDD')
+            }
+            return minDate.format('jYYYY/jM/jD')
+        },
+        maxDate() {
+            var maxDate = new jMoment();
+            if (this.field.max == 'nextyear') {
+                maxDate.jYear(maxDate.jYear() + 1)
+            }
+            else
+            if (this.field.max == 'nextmonth') {
+                maxDate.jMonth(maxDate.jMonth() + 1)
+            }
+            else
+            if (this.field.max == 'nextweek') {
+                maxDate.jDate(maxDate.jDate() + 7)
+            }
+            else
+            if (this.field.max == 'nextday') {
+                maxDate.jDate(maxDate.jDate() + 1)
+            }
+            else
+            if(jMoment(this.field.max, 'jYYYY/jMM/jDD').isValid()) {
+                maxDate = jMoment(this.field.max).format('jYYYY-jMM-jDD')
+            }
+            else
+            if(moment(this.field.max, 'YYYY-MM-DD', true).isValid())
+            {
+                maxDate = jMoment(this.field.max).format('jYYYY-jMM-jDD')
+            }
+            else
+            {
+                maxDate = jMoment(this.field.max, 'jYYYY-jMM-jDD').format('jYYYY-jMM-jDD')
+            }
+            return maxDate.format('jYYYY/jM/jD')
         },
         type() {
             return this.field.type || 'datetime'
@@ -82,12 +143,18 @@ export default {
         createFormat() {
             switch(this.type)
             {
-                case 'datetime':
-                    return 'jYYYY/jMM/jDD HH:mm:ss';
                 case 'date':
                     return 'jYYYY/jMM/jDD';
                 case 'time':
                     return 'HH:mm';
+                case 'year-month':
+                    return 'jYYYY/jMM';
+                case 'year':
+                    return 'jYYYY';
+                case 'month':
+                    return 'jMM';
+                case 'datetime':
+                    return 'jYYYY/jMM/jDD HH:mm:ss';
             }
         }
     },
@@ -128,9 +195,9 @@ export default {
 .rtl-direction {
     direction: rtl;
 }
-.rtl-font-face {
+/* .rtl-font-face {
     font-family: 'IranSans' !important;
-}
+} */
 .rtl-font-size {
     font-size: 12px;
 }

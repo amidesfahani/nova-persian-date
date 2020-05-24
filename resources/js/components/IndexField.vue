@@ -12,10 +12,17 @@ jMoment.loadPersian();
 export default {
     props: ['resourceName', 'field'],
     computed: {
+        canHumanize() {
+            if (this.type == 'time' || this.type == 'year-month' || this.type == 'year' || this.type == 'month')
+            {
+                return false
+            }
+            return true
+        },
         persianDate() {
             if(this.field.value) {
                 var d = jMoment(this.field.value)
-                if(this.field.humanize)
+                if(this.field.humanize && this.canHumanize())
                 {
                     if(d.isBefore(jMoment()))
                     {
@@ -42,12 +49,18 @@ export default {
         createFormat() {
             switch(this.type)
             {
-                case 'datetime':
-                    return 'jYYYY/jMM/jDD HH:mm:ss';
                 case 'date':
                     return 'jYYYY/jMM/jDD';
                 case 'time':
                     return 'HH:mm';
+                case 'year-month':
+                    return 'jYYYY/jMM';
+                case 'year':
+                    return 'jYYYY';
+                case 'month':
+                    return 'jMM';
+                case 'datetime':
+                    return 'jYYYY/jMM/jDD HH:mm:ss';
             }
         }
     },

@@ -11,7 +11,8 @@ export default {
         fieldPersianDate() {
             if(this.field.value)
             {
-                let date = jMoment(this.field.value).format(this.format);
+                // let date = jMoment(this.field.value).format(this.format);
+                let date = this.persianDate();
                 this.field.value = `<span class="ltr-text">${date}</span>`;
                 this.field.asHtml = true;
             }
@@ -30,15 +31,54 @@ export default {
         createFormat() {
             switch(this.type)
             {
-                case 'datetime':
-                    return 'jYYYY/jMM/jDD HH:mm:ss';
                 case 'date':
                     return 'jYYYY/jMM/jDD';
                 case 'time':
                     return 'HH:mm';
+                case 'year-month':
+                    return 'jYYYY/jMM';
+                case 'year':
+                    return 'jYYYY';
+                case 'month':
+                    return 'jMM';
+                case 'datetime':
+                    return 'jYYYY/jMM/jDD HH:mm:ss';
             }
         }
     },
+    methods: {
+        canHumanize() {
+            if (this.type == 'time' || this.type == 'year-month' || this.type == 'year' || this.type == 'month')
+            {
+                return false
+            }
+            return true
+        },
+        persianDate() {
+            this.fieldValue
+            if(this.field.value) {
+
+                var now = new jMoment();
+                var d = jMoment(this.field.value)
+                d.jYear(now.jYear())
+                d.jMonth(now.jMonth())
+                d.date(now.date())
+
+                if(this.field.humanize && this.canHumanize())
+                {
+                    if(d.isBefore(jMoment()))
+                    {
+                        return d.fromNow()
+                    }
+                    else
+                    {
+                        return d.toNow()
+                    }
+                }
+                return d.format(this.format)
+            }
+        }
+    }
 }
 </script>
 
