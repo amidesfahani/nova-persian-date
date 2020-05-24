@@ -51,7 +51,7 @@ class NovaPersianDate extends Field
     }
 
     /**
-     * Set Start Date.
+     * Set Minimum Date.
      *
      * @param string :TODO: add more formats (timestamp, carbon, jdate, string)
      * @return PersianDateTime
@@ -59,6 +59,17 @@ class NovaPersianDate extends Field
     public function min($min)
     {
         return $this->withMeta(compact('min'));
+    }
+
+    /**
+     * Set Maximum Date.
+     *
+     * @param string :TODO: add more formats (timestamp, carbon, jdate, string)
+     * @return PersianDateTime
+     */
+    public function max($max)
+    {
+        return $this->withMeta(compact('max'));
     }
 
     /**
@@ -81,7 +92,7 @@ class NovaPersianDate extends Field
     {
         return $this->withMeta(compact('formats'));
     }
-    
+
     /**
      * type ['datetime', 'date', 'time']
      *
