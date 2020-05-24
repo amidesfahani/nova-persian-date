@@ -24,7 +24,7 @@ NovaPersianDate::make('Join Date', 'created_at')
     ->humanize()
     ->type('datetime')
     ->sortable(),
-``;
+```
 
 ```css
 .vpd-dir-rtl {
@@ -33,7 +33,7 @@ NovaPersianDate::make('Join Date', 'created_at')
 .vpd-dir-ltr {
   font-family: 'Tahoma'
 }
-``;
+```
 
 # Alternatives
 
