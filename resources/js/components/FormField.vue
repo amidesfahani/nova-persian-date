@@ -2,7 +2,7 @@
     <default-field :field="field" :errors="errors">
         <template slot="field">
             <div class="relative">
-                <span @click="show=true" v-if="editable" class="absolute left-0 top-0 flex items-center h-full px-3 btn-primary" style="border-radius: .5rem 0 0 .5rem;">
+                <span @click="show=true" v-if="editable" class="absolute flex items-center h-full px-3 btn-primary" style="border-radius: .5rem 0 0 .5rem; left: 0; top: 0;">
                     <svg version="1.1" width="16px" height="16px" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg" fill="#f9f9f9"><path d="M436 160H12C5.4 160 0 154.6 0 148V112C0 85.5 21.5 64 48 64H96V12C96 5.4 101.4 0 108 0H148C154.6 0 160 5.4 160
     12V64H288V12C288 5.4 293.4 0 300 0H340C346.6 0 352 5.4 352 12V64H400C426.5 64 448 85.5 448 112V148C448 154.6
     442.6 160 436 160zM12 192H436C442.6 192 448 197.4 448 204V464C448 490.5 426.5 512 400 512H48C21.5 512 0 490.5 0
