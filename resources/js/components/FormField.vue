@@ -206,14 +206,14 @@ export default {
                 m = jMoment(value, 'jYYYY-jMM-jDD')
             }
             else
-            if(value.indexOf('/') !== -1 && moment(value, 'YYYY/MM/DD', true).isValid())
+            if(value.indexOf('/') !== -1 && jMoment(value, 'YYYY/MM/DD', true).isValid())
             {
-                m = moment(value, 'YYYY/MM/DD')
+                m = jMoment(value, 'YYYY/MM/DD')
             }
             else
-            if(value.indexOf('-') !== -1 && moment(value, 'YYYY-MM-DD', true).isValid())
+            if(value.indexOf('-') !== -1 && jMoment(value, 'YYYY-MM-DD', true).isValid())
             {
-                m = moment(value, 'YYYY-MM-DD')
+                m = jMoment(value, 'YYYY-MM-DD')
             }
             else
             {
@@ -250,7 +250,7 @@ export default {
 
 <style scoped>
 .ltr-direction {
-    direction: ltr;
+    direction: ltr !important;
     text-align: left;
 }
 .rtl-direction {
@@ -263,8 +263,6 @@ export default {
     font-size: 12px;
 }
 input.is-editable {
-    direction: ltr;
-    text-align: left;
     padding-left: 3rem;
 }
 </style>

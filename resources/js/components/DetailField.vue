@@ -55,15 +55,8 @@ export default {
             return true
         },
         persianDate() {
-            this.fieldValue
             if(this.field.value) {
-
-                var now = new jMoment();
                 var d = jMoment(this.field.value)
-                d.jYear(now.jYear())
-                d.jMonth(now.jMonth())
-                d.date(now.date())
-
                 if(this.field.humanize && this.canHumanize())
                 {
                     if(d.isBefore(jMoment()))
