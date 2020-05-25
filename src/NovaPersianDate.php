@@ -73,6 +73,14 @@ class NovaPersianDate extends Field
     }
 
     /**
+     * Set Editable
+     */
+    public function editable()
+    {
+        return $this->withMeta(['editable' => true]);
+    }
+
+    /**
      * Set Humanize Function for MOMENT.
      *
      * @return PersianDateTime
