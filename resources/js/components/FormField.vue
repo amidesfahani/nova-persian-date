@@ -23,7 +23,8 @@
                 :element="fieldId"
                 :min="minDate"
                 :max="maxDate"
-                :locale="locale" 
+                :locale="locale"
+                :editable="editable"
             />
 
         </template>
@@ -66,6 +67,9 @@ export default {
         altDateValue() {
             return this.value ? jMoment(this.value, this.format).format('YYYY-MM-DD HH:mm:ss') : ''
         },
+        editable() {
+            return this.field.editable || false
+        },
         color() {
             return this.field.color || `rgb(30, 136, 229)`
         },
@@ -74,68 +78,12 @@ export default {
             return id
         },
         minDate() {
-            var minDate = new jMoment();
-            if (this.field.min == 'lastyear') {
-                minDate.jYear(minDate.jYear() - 1)
-            }
-            else
-            if (this.field.min == 'lastmonth') {
-                minDate.jMonth(minDate.jMonth() - 1)
-            }
-            else
-            if (this.field.min == 'lastweek') {
-                minDate.jDate(minDate.jDate() - 7)
-            }
-            else
-            if (this.field.min == 'lastday') {
-                minDate.jDate(minDate.jDate() - 1)
-            }
-            else
-            if(jMoment(this.field.min, 'jYYYY/jMM/jDD').isValid()) {
-                minDate = jMoment(this.field.min).format('jYYYY-jMM-jDD')
-            }
-            else
-            if(moment(this.field.min, 'YYYY-MM-DD', true).isValid())
-            {
-                minDate = jMoment(this.field.min).format('jYYYY-jMM-jDD')
-            }
-            else
-            {
-                minDate = jMoment(this.field.min, 'jYYYY-jMM-jDD').format('jYYYY-jMM-jDD')
-            }
+            var minDate = this.calculateMoment(this.field.min, 'min');
             return minDate.format('jYYYY/jM/jD')
         },
         maxDate() {
-            var maxDate = new jMoment();
-            if (this.field.max == 'nextyear') {
-                maxDate.jYear(maxDate.jYear() + 1)
-            }
-            else
-            if (this.field.max == 'nextmonth') {
-                maxDate.jMonth(maxDate.jMonth() + 1)
-            }
-            else
-            if (this.field.max == 'nextweek') {
-                maxDate.jDate(maxDate.jDate() + 7)
-            }
-            else
-            if (this.field.max == 'nextday') {
-                maxDate.jDate(maxDate.jDate() + 1)
-            }
-            else
-            if(jMoment(this.field.max, 'jYYYY/jMM/jDD').isValid()) {
-                maxDate = jMoment(this.field.max).format('jYYYY-jMM-jDD')
-            }
-            else
-            if(moment(this.field.max, 'YYYY-MM-DD', true).isValid())
-            {
-                maxDate = jMoment(this.field.max).format('jYYYY-jMM-jDD')
-            }
-            else
-            {
-                maxDate = jMoment(this.field.max, 'jYYYY-jMM-jDD').format('jYYYY-jMM-jDD')
-            }
-            return maxDate.format('jYYYY/jM/jD')
+            var moment = this.calculateMoment(this.field.max, 'max');
+            return moment.format('jYYYY/jM/jD')
         },
         type() {
             return this.field.type || 'datetime'
@@ -160,6 +108,86 @@ export default {
     },
 
     methods: {
+        calculateMoment(value, type) {
+            var m = new jMoment();
+            if (value == 'lastyear') {
+                m.jYear(m.jYear() - 1)
+            }
+            else
+            if (value == 'lastmonth') {
+                m.jMonth(m.jMonth() - 1)
+            }
+            else
+            if (value == 'lastweek') {
+                m.jDate(m.jDate() - 7)
+            }
+            else
+            if (value == 'lastday') {
+                m.jDate(m.jDate() - 1)
+            }
+            else
+            if (value == 'today') {
+                if (type == 'max') {
+                    m.endOf('day')
+                } else {
+                    m.startOf('day')
+                }
+            }
+            else
+            if (value == 'thisyear') {
+                if (type == 'max') {
+                    m.endOf('jyear')
+                } else {
+                    m.startOf('jyear')
+                }
+            }
+            else
+            if (value == 'thismonth') {
+                if (type == 'max') {
+                    m.endOf('jmonth')
+                } else {
+                    m.startOf('jmonth')
+                }
+            }
+            else
+            if (value == 'thisweek') {
+                if (type == 'max') {
+                    m.endOf('jweek')
+                } else {
+                    m.startOf('jweek')
+                }
+            }
+            else
+            if (value == 'nextyear') {
+                m.jYear(m.jYear() + 1)
+            }
+            else
+            if (value == 'nextmonth') {
+                m.jMonth(m.jMonth() + 1)
+            }
+            else
+            if (value == 'nextweek') {
+                m.jDate(m.jDate() + 7)
+            }
+            else
+            if (value == 'nextday') {
+                m.jDate(m.jDate() + 1)
+            }
+            else
+            if(jMoment(value, 'jYYYY/jMM/jDD').isValid()) {
+                m = jMoment(value).format('jYYYY-jMM-jDD')
+            }
+            else
+            if(moment(value, 'YYYY-MM-DD', true).isValid())
+            {
+                m = jMoment(value)
+            }
+            else
+            {
+                m = jMoment(value, 'jYYYY-jMM-jDD')
+            }
+            return m
+        },
         /*
          * Set the initial, internal value for the field.
          */
