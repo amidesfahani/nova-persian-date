@@ -12,13 +12,6 @@ jMoment.loadPersian();
 export default {
     props: ['resourceName', 'field'],
     computed: {
-        canHumanize() {
-            if (this.type == 'time' || this.type == 'year-month' || this.type == 'year' || this.type == 'month')
-            {
-                return false
-            }
-            return true
-        },
         persianDate() {
             if(this.field.value) {
                 var d = jMoment(this.field.value)
@@ -64,5 +57,14 @@ export default {
             }
         }
     },
+    methods: {
+        canHumanize() {
+            if (this.type == 'time' || this.type == 'year-month' || this.type == 'year' || this.type == 'month')
+            {
+                return false
+            }
+            return true
+        }
+    }
 }
 </script>
