@@ -81,14 +81,6 @@ class NovaPersianDate extends Field
     }
 
     /**
-     * Set Placeholder
-     */
-    public function placeholder()
-    {
-        return $this->withMeta(['placeholder' => true]);
-    }
-
-    /**
      * Set Humanize Function for MOMENT.
      *
      * @return PersianDateTime
