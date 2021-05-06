@@ -75,7 +75,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .ltr-text {
     display: inline-block;
     direction: ltr;
