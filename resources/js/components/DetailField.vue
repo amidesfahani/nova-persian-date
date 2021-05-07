@@ -1,5 +1,16 @@
 <template>
-    <panel-item :field="fieldPersianDate" />
+    <panel-item :field="fieldPersianDate">
+        <template slot="value">
+            <span v-if="field.humanize" class="inline-flex items-center">
+                <span>{{persianDate()}}</span>
+                <span class="ltr inline-flex items-center text-gray-600 text-xs ml-3">
+                    <span><svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></span>
+                    <span class="mr-1 ltr inline-block">{{moment.format(format)}}</span>
+                </span>
+            </span>
+            <span v-else class="ltr inline-block">{{persianDate()}}</span>
+        </template>
+    </panel-item>
 </template>
 
 <script>
@@ -11,9 +22,16 @@ export default {
         fieldPersianDate() {
             if(this.field.value)
             {
-                // let date = jMoment(this.field.value).format(this.format);
-                let date = this.persianDate();
-                this.field.value = `<span class="ltr-text">${date}</span>`;
+                this.field.value = this.persianDate()
+                // let date = this.persianDate();
+                // if (this.field.humanize)
+                // {
+                //     this.field.value = `<span class="">${date}</span>`;
+                // }
+                // else
+                // {
+                //     this.field.value = `<span class="ltr inline-block">${date}</span>`;
+                // }
                 this.field.asHtml = true;
             }
             return this.field
@@ -42,8 +60,14 @@ export default {
                 case 'month':
                     return 'jMM';
                 case 'datetime':
+                    return 'jYYYY/jMM/jDD HH:mm';
+                case 'full':
                     return 'jYYYY/jMM/jDD HH:mm:ss';
             }
+            return 'jYYYY/jMM/jDD HH:mm';
+        },
+        moment() {
+            return jMoment(this.field.value)
         }
     },
     methods: {
@@ -56,7 +80,8 @@ export default {
         },
         persianDate() {
             if(this.field.value) {
-                var d = jMoment(this.field.value)
+                // var d = jMoment(this.field.value)
+                var d = this.moment
                 if(this.field.humanize && this.canHumanize())
                 {
                     if(d.isBefore(jMoment()))
@@ -75,9 +100,9 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .ltr-text {
-    display: inline-block;
+    display: inline-block !important;
     direction: ltr;
 }
 </style>
