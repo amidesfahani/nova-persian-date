@@ -1,5 +1,5 @@
 <template>
-    <span v-if="field.value" class="whitespace-no-wrap">{{ persianDate }}</span>
+    <span v-if="field.value" class="whitespace-no-wrap" :class="{'block ltr': !field.humanize}">{{ persianDate }}</span>
     <span v-else>&mdash;</span>
 </template>
 
