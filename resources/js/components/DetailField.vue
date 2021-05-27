@@ -1,5 +1,5 @@
 <template>
-    <panel-item :field="fieldPersianDate">
+    <panel-item :field="fieldPersianDate" v-if="fieldPersianDate.value">
         <template slot="value">
             <span v-if="field.humanize" class="inline-flex items-center">
                 <span>{{fieldPersianDate.value}}</span>
@@ -81,7 +81,8 @@ export default {
                     }
                     else
                     {
-                        return d.toNow()
+                        d.format(this.format)
+                        // return d.toNow()
                     }
                 }
                 return d.format(this.format)

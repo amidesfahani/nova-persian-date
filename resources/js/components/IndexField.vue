@@ -7,7 +7,7 @@
 import jMoment from "moment-jalaali"
 //import fa from "moment/src/locale/fa";
 //jMoment.locale("fa", fa);
-jMoment.loadPersian();
+// jMoment.loadPersian();
 
 export default {
     props: ['resourceName', 'field'],
@@ -23,7 +23,8 @@ export default {
                     }
                     else
                     {
-                        return d.toNow()
+                        return d.format(this.format)
+                        // return d.toNow()
                     }
                 }
                 return d.format(this.format)
