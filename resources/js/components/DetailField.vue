@@ -73,16 +73,20 @@ export default {
             if(this.field.value) {
                 // var d = jMoment(this.field.value)
                 var d = this.moment
+                console.log(d)
+                console.log(jMoment())
+                console.log(d.isBefore(jMoment()))
                 if(this.field.humanize && this.canHumanize())
                 {
-                    if(d.isBefore(jMoment()))
-                    {
-                        return d.toNow()
-                    }
-                    else
-                    {
-                        return d.fromNow()
-                    }
+                    return d.fromNow()
+                    // if(d.isBefore(jMoment()))
+                    // {
+                    //     return d.toNow()
+                    // }
+                    // else
+                    // {
+                    //     return d.fromNow()
+                    // }
                 }
                 return d.format(this.format)
             }

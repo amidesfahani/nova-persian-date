@@ -17,14 +17,7 @@ export default {
                 var d = jMoment(this.field.value)
                 if(this.field.humanize && this.canHumanize())
                 {
-                    if(d.isBefore(jMoment()))
-                    {
-                        return d.toNow()
-                    }
-                    else
-                    {
-                        return d.fromNow()
-                    }
+                    return d.fromNow()
                 }
                 return d.format(this.format)
             }
