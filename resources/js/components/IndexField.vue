@@ -19,12 +19,11 @@ export default {
                 {
                     if(d.isBefore(jMoment()))
                     {
-                        return d.fromNow()
+                        return d.toNow()
                     }
                     else
                     {
-                        return d.format(this.format)
-                        // return d.toNow()
+                        return d.fromNow()
                     }
                 }
                 return d.format(this.format)

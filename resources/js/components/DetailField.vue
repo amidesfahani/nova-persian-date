@@ -77,18 +77,17 @@ export default {
                 {
                     if(d.isBefore(jMoment()))
                     {
-                        return d.fromNow()
+                        return d.toNow()
                     }
                     else
                     {
-                        d.format(this.format)
-                        // return d.toNow()
+                        return d.fromNow()
                     }
                 }
                 return d.format(this.format)
             }
         }
-    }
+    },
 }
 </script>
 
