@@ -16,7 +16,7 @@
     },
     "dependencies": {
         "moment-jalaali": "^0.9.1",
-        "vue": "^2.5.0",
+        "vue": "^3.0.0",
         "vue-persian-datetime-picker": "^2.1.4"
     }
 }
